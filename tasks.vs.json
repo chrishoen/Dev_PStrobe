@@ -1,0 +1,52 @@
+{
+  "version": "0.2.1",
+   "tasks": [
+      {
+         "taskLabel": "MyEcho",
+         "appliesTo": "Makefile",
+         "type": "launch",
+         "command": "${env.COMSPEC}",
+         "args": [ "echo workspaceRoot2 ${workspaceRoot}" ]
+      },
+      {
+         "taskLabel": "makefile-clean",
+         "appliesTo": "makefile",
+         "type": "launch",
+         "contextType": "clean",
+         "command": "C:/ti/ccs/ccs/utils/bin/gmake.exe",
+         "args": [
+            "-k clean"
+         ],
+         "envVars": {
+            "VSCMD_START_DIR": "\"${workspaceRoot}\""
+         }
+      },
+      {
+         "taskLabel": "makefile-build",
+         "appliesTo": "makefile",
+         "type": "launch",
+         "contextType": "build",
+         "command": "C:/ti/ccs/ccs/utils/bin/gmake.exe",
+         "args": [
+            "-k all"
+         ],
+         "envVars": {
+            "VSCMD_START_DIR": "\"${workspaceRoot}\""
+         },
+         "problemMatcher": {
+            "owner": "c",
+            "fileLocation": [
+               "relative",
+               "${workspaceRoot}"
+            ],
+            "pattern": {
+               "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+               "file": 1,
+               "line": 2,
+               "severity": 3,
+               "message": 4
+            }
+         }
+      }
+   ]
+}
