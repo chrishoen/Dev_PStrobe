@@ -10,7 +10,7 @@ STACK_SIZE=0x100
 HEAP_SIZE=0x100
 GEN_DIR=gen
 
-CFLAGS=-v3 -O2 --quiet --display_error_number --endian=little --hardware_mac=on --obj_directory=$(GEN_DIR) --pp_directory=$(GEN_DIR) -ppd -ppa
+CFLAGS=-v3 -O2 -qq --display_error_number --endian=little --hardware_mac=on --obj_directory=$(GEN_DIR) --pp_directory=$(GEN_DIR) -ppd -ppa
 LFLAGS=--reread_libs --warn_sections --stack_size=$(STACK_SIZE) --heap_size=$(HEAP_SIZE)
 
 TARGET=$(GEN_DIR)/$(PROJ_NAME).out
@@ -21,10 +21,8 @@ OBJECTS=$(patsubst %,$(GEN_DIR)/%,$(SOURCES:.c=.object))
 all: printStart $(TARGET) printEnd
 
 printStart:
-	@echo ''
 
 printEnd:
-	@echo ''
 
 # Invokes the linker (-z flag) to make the .out file
 $(TARGET): $(OBJECTS) $(LINKER_COMMAND_FILE)
