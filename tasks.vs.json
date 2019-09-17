@@ -33,12 +33,9 @@
          "envVars": {
             "VSCMD_START_DIR": "\"${workspaceRoot}\""
          },
-         "problemMatcher": {
+         "problemMatcher22": {
             "owner": "c",
-            "fileLocation": [
-               "relative",
-               "${workspaceRoot}"
-            ],
+            "fileLocation": "absolute",
             "pattern": {
                "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
                "file": 1,
