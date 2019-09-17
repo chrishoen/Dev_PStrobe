@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "MyConfig",
+            "includePath": [
+                "C:/ti/ccs/ccs/tools/compiler/ti-cgt-pru_2.3.2/include",
+                "C:/ti/pru/include",
+                "C:/ti/pru/include/am335x",
+                "${workspaceRoot}\\**"
+            ],
+            "defines": [
+                "register",
+                "__far",
+                "__PRU__"
+            ],
+            "intelliSenseMode": "linux-gcc-arm",
+            "forcedInclude": [
+                "intellisense.h"
+            ],
+            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.22.27905/bin/Hostx64/x64/cl.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

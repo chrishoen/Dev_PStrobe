@@ -50,12 +50,12 @@ void main(){
 	CT_CFG.SYSCFG_bit.STANDBY_INIT = 0;
 
 	/* Toggle GPO pins TODO: Figure out which to use */
-	gpio = 0x0020;
-   
+    gpio = 0x0020;
+
    // Counter pointer in shared memory section.
    int* tCounterPtr = (int*)0x10000;
    *tCounterPtr = 1000;
-   jjjjjj
+   
    /* TODO: Create stop condition, else it will toggle indefinitely */
 	while(1){
 		__R30 ^= gpio;
