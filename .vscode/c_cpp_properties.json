@@ -13,7 +13,7 @@
                 "__far",
                 "__PRU__"
             ],
-            "intelliSenseMode": "linux-gcc-arm",
+            "intelliSenseMode": "gcc-x86",
             "forcedInclude": [
                 "intellisense.h"
             ],

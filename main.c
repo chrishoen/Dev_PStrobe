@@ -47,10 +47,10 @@ void main(){
 	volatile uint32_t gpio;
    
 	/* Clear SYSCFG[STANDBY_INIT] to enable OCP master port */
-	CT_CFG.SYSCFG_bit.STANDBY_INIT = 0;
+   CT_CFG.SYSCFG_bit.STANDBY_INIT = 0;
 
 	/* Toggle GPO pins TODO: Figure out which to use */
-    gpio = 0x0020;
+   gpio = 0x0020;
 
    // Counter pointer in shared memory section.
    int* tCounterPtr = (int*)0x10000;
