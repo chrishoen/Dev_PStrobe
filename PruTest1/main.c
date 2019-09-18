@@ -51,7 +51,7 @@ void main(){
 
 	/* Toggle GPO pins TODO: Figure out which to use */
    gpio = 0x0020;
-   
+
    // Counter pointer in shared memory section.
    int* tCounterPtr = (int*)0x10000;
    *tCounterPtr = 1000;
