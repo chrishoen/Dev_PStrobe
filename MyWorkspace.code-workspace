@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "PruTest1"
+		},
+		{
+			"path": "PruMsg1"
 		}
 	],
 	"settings": {
