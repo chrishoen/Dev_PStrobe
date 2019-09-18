@@ -1,2 +1,2 @@
 # Dev_PStrobe
-beaglebone pru, c++, vstudio, open folder, makefile project
+beaglebone pru, c++, vscode, makefile project

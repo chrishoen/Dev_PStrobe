@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "PruTest1"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"pru_cfg.h": "c"
+		}
+	}
+}
