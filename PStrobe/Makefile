@@ -2,26 +2,20 @@ PRU_CGT := c:/TI/ccs/ccs/tools/compiler/ti-cgt-pru_2.3.2
 BINDIR := C:/ti/ccs/ccs/utils/cygwin/
 MKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 CURRENT_DIR := $(notdir $(patsubst %/,%,$(dir $(MKFILE_PATH))))
-#PROJ_NAME=$(CURRENT_DIR)
 PROJ_NAME=pstrobe
 LINKER_COMMAND_FILE=./AM335x_PRU.cmd
-#LIBS=--library=../../../lib/rpmsg_lib.lib
-#INCLUDE=--include_path=../../../include --include_path=../../../include/am335x
 LIBS=--library=C:/ti/pru/lib/rpmsg_lib.lib
 INCLUDE=--include_path=C:/ti/pru/include --include_path=C:/ti/pru/include/am335x
 STACK_SIZE=0x100
 HEAP_SIZE=0x100
 GEN_DIR=gen
 
-#Common compiler and linker flags (Defined in 'PRU Optimizing C/C++ Compiler User's Guide)
 CFLAGS=-v3 -O2 --display_error_number --endian=little --hardware_mac=on --obj_directory=$(GEN_DIR) --pp_directory=$(GEN_DIR) -ppd -ppa
-#Linker flags (Defined in 'PRU Optimizing C/C++ Compiler User's Guide)
 LFLAGS=--reread_libs --warn_sections --stack_size=$(STACK_SIZE) --heap_size=$(HEAP_SIZE)
 
 TARGET=$(GEN_DIR)/$(PROJ_NAME).out
 MAP=$(GEN_DIR)/$(PROJ_NAME).map
 SOURCES=$(wildcard *.c)
-#Using .object instead of .obj in order to not conflict with the CCS build process
 OBJECTS=$(patsubst %,$(GEN_DIR)/%,$(SOURCES:.c=.object))
 
 all: printStart $(TARGET) printEnd
