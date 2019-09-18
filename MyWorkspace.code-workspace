@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "PruMsg1"
+		},
+		{
+			"path": "PStrobe"
 		}
 	],
 	"settings": {
