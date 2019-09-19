@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "pru_cfg.h": "c"
+        "pru_cfg.h": "c",
+        "stdint.h": "c"
     }
 }
