@@ -27,9 +27,35 @@ void main()
    // Loop to toggle the gpio pin.
 	while(1)
    {
+      unsigned tBeginCycleCount = PRU0_CTRL.CYCLE;
+
+      // Update shared memory region with the cycle counter.
+      gPruShare->mU1 = PRU0_CTRL.CYCLE;
+
+      while(1)
+      {
+         gPruShare->mN2++;
+         unsigned tCycleCount = PRU0_CTRL.CYCLE;
+         unsigned tDeltaCycleCount = tCycleCount - tBeginCycleCount;
+         gPruShare->mU2 = tCycleCount;
+         gPruShare->mU3 = tDeltaCycleCount;
+         if (tDeltaCycleCount > 200*1000) break;
+      }
+      gPruShare->mN3++;
+ 
+		__R30 ^= gpio;
+
+	}
+}
+
+#if 0
+   // Loop to toggle the gpio pin.
+	while(1)
+   {
 		__R30 ^= gpio;
 		__delay_cycles(200000);
       // Update shared memory region with the cycle counter.
       gPruShare->mU1 = PRU0_CTRL.CYCLE;
 	}
-}
+#endif
+
