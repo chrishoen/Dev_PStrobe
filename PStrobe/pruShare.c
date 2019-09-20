@@ -20,8 +20,14 @@ void initializePruShare()
    gPruShare = (PruShareT*)0x10000;
 
    // Initialize members.
-   gPruShare->mN1 = 1001;
-   gPruShare->mN2 = 1002;
-   gPruShare->mN3 = 1003;
-   gPruShare->mN4 = 1004;
+   gPruShare->mN1 = 0;
+   gPruShare->mN2 = 0;
+   gPruShare->mN3 = 0;
+   gPruShare->mN4 = 0;
+
+   // Initialize members.
+   gPruShare->mU1 = 0;
+   gPruShare->mU2 = 0;
+   gPruShare->mU3 = 0;
+   gPruShare->mU4 = 0;
 }
