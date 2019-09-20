@@ -23,6 +23,12 @@ typedef struct PruShareT
    int mN3;
    int mN4;
 
+   // General purpose integer variables.
+   unsigned mU1;
+   unsigned mU2;
+   unsigned mU3;
+   unsigned mU4;
+
 } PruShareT;
 
 //****************************************************************************
