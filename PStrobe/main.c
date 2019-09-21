@@ -9,7 +9,8 @@ Program that strobes a gpio pin and communicates with the arm.
 #include <stdint.h>
 #include <pru_cfg.h>
 #include <pru_ctrl.h>
-#include "resource_table_empty.h"
+//#include "resource_table_empty.h"
+#include "resource_table_0.h"
 #include "pruShare.h"
 
 //******************************************************************************
