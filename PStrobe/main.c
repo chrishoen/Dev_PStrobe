@@ -48,7 +48,7 @@ void main()
    //***************************************************************************
    // Initialize.
 
-   // Initialize the pru shared memory region.
+   // Initialize the pru shared memory.
    initializePruShare();
 
    // Enable the OCP master port.
