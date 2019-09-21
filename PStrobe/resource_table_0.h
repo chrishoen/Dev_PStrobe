@@ -38,6 +38,16 @@
 #include <rsc_types.h>
 #include "pru_virtio_ids.h"
 
+//*****************************************************************************
+// extern
+//*****************************************************************************
+#undef  EXTERN
+#ifdef _RESOURCE_TABLE_C_
+#define EXTERN
+#else
+#define EXTERN extern
+#endif
+
 /*
  * Sizes of the virtqueues (expressed in number of buffers supported,
  * and must be power of 2)
@@ -57,7 +67,7 @@
 #define HOST_UNUSED		255
 
 /* Mapping sysevts to a channel. Each pair contains a sysevt, channel. */
-struct ch_map pru_intc_map[] = { {16, 2},
+EXTERN struct ch_map pru_intc_map[] = { {16, 2},
 				 {17, 0},
 };
 
@@ -77,7 +87,7 @@ struct my_resource_table {
 
 #pragma DATA_SECTION(resourceTable, ".resource_table")
 #pragma RETAIN(resourceTable)
-struct my_resource_table resourceTable = {
+EXTERN struct my_resource_table resourceTable = {
 	1,	/* Resource table version: only version 1 is supported by the current driver */
 	2,	/* number of entries in the table */
 	0, 0,	/* reserved, must be zero */
