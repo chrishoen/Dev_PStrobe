@@ -29,6 +29,10 @@ typedef struct PruShareT
    unsigned mU3;
    unsigned mU4;
 
+   // Message variables.
+   int mArmTxMsgState;
+   int mArmTxMsgCount;
+
 } PruShareT;
 
 //****************************************************************************

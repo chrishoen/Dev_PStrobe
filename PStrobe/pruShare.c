@@ -30,4 +30,9 @@ void initializePruShare()
    gPruShare->mU2 = 0;
    gPruShare->mU3 = 0;
    gPruShare->mU4 = 0;
+
+   // Initialize members.
+   gPruShare->mArmTxMsgState = 0;
+   gPruShare->mArmTxMsgCount = 0;
 }
+
