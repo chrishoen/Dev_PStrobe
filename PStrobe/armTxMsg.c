@@ -107,8 +107,13 @@ void initializeArmTxMsg()
             gPruShare->mArmTxMsgCount++;
             rSeqNum++;
             pru_rpmsg_send(&rTransport, rDestin, rSource, &rSeqNum, 4);
+            rSeqNum++;
             // Update shared memory.
             gPruShare->mArmTxMsgCount++;
+
+            // Update shared memory.
+            gPruShare->mArmTxMsgState = 7;
+            return;
          }
 
          // Update shared memory.
@@ -116,8 +121,6 @@ void initializeArmTxMsg()
       }
 	}
 
-   // Update shared memory.
-   gPruShare->mArmTxMsgState = 7;
 }
 
 //******************************************************************************
@@ -127,7 +130,9 @@ void initializeArmTxMsg()
 
 void sendArmTxMsg(int aCode)
 {
+   gPruShare->mArmTxMsgCount++;
    pru_rpmsg_send(&rTransport, rDestin, rSource, &rSeqNum, 4);
+   rSeqNum++;
 }
 
 //******************************************************************************
