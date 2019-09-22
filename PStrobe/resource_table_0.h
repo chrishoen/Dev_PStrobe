@@ -89,9 +89,10 @@ struct my_resource_table {
 	struct fw_rsc_custom pru_ints;
 };
 
+#ifdef _RESOURCE_TABLE_C_
 #pragma DATA_SECTION(resourceTable, ".resource_table")
 #pragma RETAIN(resourceTable)
-EXTERN struct my_resource_table resourceTable = {
+struct my_resource_table resourceTable = {
 	1,	/* Resource table version: only version 1 is supported by the current driver */
 	2,	/* number of entries in the table */
 	0, 0,	/* reserved, must be zero */
@@ -145,7 +146,7 @@ EXTERN struct my_resource_table resourceTable = {
 		},
 	},
 };
-
-struct my_resource_table resourceTable22;
-
+#else
+extern struct my_resource_table resourceTable;
+#endif
 #endif /* _RSC_TABLE_PRU_H_ */
