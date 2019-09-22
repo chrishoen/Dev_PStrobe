@@ -67,9 +67,13 @@
 #define HOST_UNUSED		255
 
 /* Mapping sysevts to a channel. Each pair contains a sysevt, channel. */
-EXTERN struct ch_map pru_intc_map[] = { {16, 2},
+#ifdef _RESOURCE_TABLE_C_
+struct ch_map pru_intc_map[] = { {16, 2},
 				 {17, 0},
 };
+#else
+extern struct ch_map pru_intc_map[2];
+#endif
 
 struct my_resource_table {
 	struct resource_table base;
@@ -141,5 +145,7 @@ EXTERN struct my_resource_table resourceTable = {
 		},
 	},
 };
+
+struct my_resource_table resourceTable22;
 
 #endif /* _RSC_TABLE_PRU_H_ */
