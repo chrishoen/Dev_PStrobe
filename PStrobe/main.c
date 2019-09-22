@@ -9,9 +9,9 @@ Program that strobes a gpio pin and communicates with the arm.
 #include <stdint.h>
 #include <pru_cfg.h>
 #include <pru_ctrl.h>
-//#include "resource_table_empty.h"
 #include "resource_table_0.h"
 #include "pruShare.h"
+#include "armTxMsg.h"
 
 //******************************************************************************
 //******************************************************************************
@@ -58,6 +58,12 @@ void main()
    PRU0_CTRL.CTRL_bit.CTR_EN = 0;
    PRU0_CTRL.CYCLE = 0;
    PRU0_CTRL.CTRL_bit.CTR_EN = 1;
+
+   // Initialize the arm message facility.
+   initializeArmTxMsg();
+
+   // Initialize the arm message facility.
+   sendArmTxMsg(101);
 
    //***************************************************************************
    //***************************************************************************
