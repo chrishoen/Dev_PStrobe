@@ -17,7 +17,7 @@
 void initializeArmTxMsg();
 
 // Send a message to the arm.
-void sendArmTxMsg(int aCode);
+void sendArmTxMsg();
 
 //******************************************************************************
 //******************************************************************************

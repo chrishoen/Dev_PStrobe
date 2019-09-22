@@ -61,10 +61,6 @@ void main()
 
    // Initialize the arm message facility.
    initializeArmTxMsg();
-   sendArmTxMsg(101);
-
-   // Initialize the arm message facility.
-// sendArmTxMsg(101);
 
    //***************************************************************************
    //***************************************************************************
@@ -101,7 +97,7 @@ void main()
          {
             // Update 1sec counter.
             tCount1sec++;
-            sendArmTxMsg(101);
+            sendArmTxMsg();
          }
 
          // Update shared memory.

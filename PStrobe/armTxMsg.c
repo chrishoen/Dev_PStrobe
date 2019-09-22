@@ -128,7 +128,7 @@ void initializeArmTxMsg()
 //******************************************************************************
 // Send a message to the arm.
 
-void sendArmTxMsg(int aCode)
+void sendArmTxMsg()
 {
    gPruShare->mArmTxMsgCount++;
    pru_rpmsg_send(&rTransport, rDestin, rSource, &rSeqNum, 4);
