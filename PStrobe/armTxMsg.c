@@ -106,6 +106,7 @@ void initializeArmTxMsg()
          {
             // Echo the message back to the same address from which we just received.
             pru_rpmsg_send(&transport, dst, src, &tSeqNum, len);
+            gPruShare->mArmTxMsgCount++;
             tSeqNum++;
             pru_rpmsg_send(&transport, dst, src, &tSeqNum, len);
             // Update shared memory.
