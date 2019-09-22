@@ -94,6 +94,7 @@ void initializeArmTxMsg()
       {
          // Update shared memory.
          gPruShare->mArmTxMsgState = 5;
+
          // Clear the event status.
          CT_INTC.SICR_bit.STS_CLR_IDX = FROM_ARM_HOST;
 
@@ -110,6 +111,9 @@ void initializeArmTxMsg()
             // Update shared memory.
             gPruShare->mArmTxMsgCount++;
          }
+
+         // Update shared memory.
+         gPruShare->mArmTxMsgState = 6;
       }
 	}
 }
