@@ -102,6 +102,44 @@ void initializeArmTxMsg()
          // Receive all available messages, multiple messages can be sent per kick.
          while (pru_rpmsg_receive(&rTransport, &rSource, &rDestin, &rSeqNum, &rLength) == PRU_RPMSG_SUCCESS) 
          {
+            // Update shared memory.
+            gPruShare->mArmTxMsgState = 7;
+            return;
+         }
+      }
+	}
+
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Send a message to the arm.
+
+void sendArmTxMsg()
+{
+   pru_rpmsg_send(&rTransport, rDestin, rSource, &rSeqNum, 4);
+   rSeqNum++;
+   gPruShare->mArmTxMsgCount++;
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+
+
+
+
+
+#if 0
+         // Receive all available messages, multiple messages can be sent per kick.
+         while (pru_rpmsg_receive(&rTransport, &rSource, &rDestin, &rSeqNum, &rLength) == PRU_RPMSG_SUCCESS) 
+         {
+            // Update shared memory.
+            gPruShare->mArmTxMsgState = 7;
+            return;
+
             // Echo the message back to the same address from which we just received.
             pru_rpmsg_send(&rTransport, rDestin, rSource, &rSeqNum, 4);
             gPruShare->mArmTxMsgCount++;
@@ -115,26 +153,4 @@ void initializeArmTxMsg()
             gPruShare->mArmTxMsgState = 7;
             return;
          }
-
-         // Update shared memory.
-         gPruShare->mArmTxMsgState = 6;
-      }
-	}
-
-}
-
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-// Send a message to the arm.
-
-void sendArmTxMsg()
-{
-   gPruShare->mArmTxMsgCount++;
-   pru_rpmsg_send(&rTransport, rDestin, rSource, &rSeqNum, 4);
-   rSeqNum++;
-}
-
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
+#endif
