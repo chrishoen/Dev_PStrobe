@@ -59,52 +59,62 @@ volatile uint8_t *status;
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-
 // Initialize the arm tx message facility.
+
 void initializeArmTxMsg()
 {
-   // Update shared memory.
+   // Update status.
    gPruShare->mArmTxMsgState = 1;
 
-	/* Clear the status of the PRU-ICSS system event that the ARM will use to 'kick' us */
+	// Clear the status of the PRU-ICSS system event that the ARM will use to 'kick' us.
 	CT_INTC.SICR_bit.STS_CLR_IDX = FROM_ARM_HOST;
 
 	/* Make sure the Linux drivers are ready for RPMsg communication */
    status = &resourceTable.rpmsg_vdev.status;
    while (!(*status & VIRTIO_CONFIG_S_DRIVER_OK));
 
-   // Update shared memory.
+   // Update status.
    gPruShare->mArmTxMsgState = 2;
 
    /* Initialize the RPMsg transport structure */
    pru_rpmsg_init(&rTransport, &resourceTable.rpmsg_vring0, &resourceTable.rpmsg_vring1, TO_ARM_HOST, FROM_ARM_HOST);
 
-   // Update shared memory.
+   // Update status.
    gPruShare->mArmTxMsgState = 3;
 
-   /* Create the RPMsg channel between the PRU and ARM user space using the transport structure. */
+   // Create the RPMsg channel between the PRU and ARM user space using the transport structure.
    while (pru_rpmsg_channel(RPMSG_NS_CREATE, &rTransport, CHAN_NAME, CHAN_DESC, CHAN_PORT) != PRU_RPMSG_SUCCESS);
 
-   // Update shared memory.
+   // Update status.
    gPruShare->mArmTxMsgState = 4;
 
+   // Loop until the first message is received from the arm.
+   // The first message establishes the source and destinations used in 
+   // subsequent message send calls.
    while (1)
    {
       // Check bit 30 of register R31 to see if the ARM has kicked us.
       if (__R31 & HOST_INT)
       {
-         // Update shared memory.
+         // Update status.
          gPruShare->mArmTxMsgState = 5;
 
          // Clear the event status.
          CT_INTC.SICR_bit.STS_CLR_IDX = FROM_ARM_HOST;
 
-         // Receive all available messages, multiple messages can be sent per kick.
-         while (pru_rpmsg_receive(&rTransport, &rSource, &rDestin, &rSeqNum, &rLength) == PRU_RPMSG_SUCCESS) 
+         // Receive the first message from the arm. This will establish the channel
+         // source and destination info.
+         if (pru_rpmsg_receive(&rTransport, &rSource, &rDestin, &rSeqNum, &rLength) == PRU_RPMSG_SUCCESS) 
          {
-            // Update shared memory.
-            gPruShare->mArmTxMsgState = 7;
+            // Update status.
+            gPruShare->mArmTxMsgState = 8;
+            // The first message was received, so exit.
             return;
+         }
+         else
+         {
+            // Update status.
+            gPruShare->mArmTxMsgState = 7;
          }
       }
 	}
@@ -118,8 +128,11 @@ void initializeArmTxMsg()
 
 void sendArmTxMsg()
 {
+   // Send the message and update the sequence number.
    pru_rpmsg_send(&rTransport, rDestin, rSource, &rSeqNum, 4);
    rSeqNum++;
+
+   // Update status.
    gPruShare->mArmTxMsgCount++;
 }
 

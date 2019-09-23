@@ -69,7 +69,7 @@ void main()
 
 	while(1)
    {     
-      // Update shared memory.
+      // Update status.
       gPruShare->mU1++;
 
       //************************************************************************
@@ -89,7 +89,7 @@ void main()
          // Toggle the gpio pin.
    		__R30 ^= gpio;
 
-         // Update shared memory.
+         // Update status.
          gPruShare->mU2++;
 
          // Update 1ms counter.
@@ -97,10 +97,11 @@ void main()
          {
             // Update 1sec counter.
             tCount1sec++;
+            // Send a message to the arm at 1hz.
             sendArmTxMsg();
          }
 
-         // Update shared memory.
+         // Update status.
          gPruShare->mU3 = tCount1ms;
          gPruShare->mU4 = tCount1sec;
       }
