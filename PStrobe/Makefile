@@ -10,7 +10,7 @@ STACK_SIZE=0x100
 HEAP_SIZE=0x100
 GEN_DIR=gen
 
-CFLAGS=-v3 -O2 --display_error_number --endian=little --hardware_mac=on --obj_directory=$(GEN_DIR) --pp_directory=$(GEN_DIR) -ppd -ppa
+CFLAGS=-v3 -O2 --display_error_number --no_warnings --endian=little --hardware_mac=on --obj_directory=$(GEN_DIR) --pp_directory=$(GEN_DIR) -ppd -ppa
 LFLAGS=--reread_libs --warn_sections --stack_size=$(STACK_SIZE) --heap_size=$(HEAP_SIZE)
 
 TARGET=$(GEN_DIR)/$(PROJ_NAME).out
