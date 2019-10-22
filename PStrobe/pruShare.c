@@ -34,5 +34,21 @@ void initializePruShare()
    // Initialize members.
    gPruShare->mArmTxMsgState = 0;
    gPruShare->mArmTxMsgCount = 0;
+
+   // Initialize members.
+   gPruShare->mMMFrameSelect = 0;
+   gPruShare->mMSFrameSelect = 1;
+   gPruShare->mSSFrameSelect = 0;
+
+   // Initialize members.
+   for (int i = 0; i < cSamplesPerFrame; i++)
+   {
+      gPruShare->mSampleFrame0[i] = 0;
+      gPruShare->mSampleFrame1[i] = 0;
+   }
+
+   // Initialize members.
+   gPruShare->mMMSampleFrame = &gPruShare->mSampleFrame0;
+   gPruShare->mSSSampleFrame = &gPruShare->mSampleFrame0;;
 }
 

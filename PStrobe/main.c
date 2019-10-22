@@ -21,8 +21,8 @@ Program that strobes a gpio pin and communicates with the arm.
 volatile register uint32_t __R30;
 volatile register uint32_t __R31;
 
-// Cycle counter limit for 1ms. 
-static const unsigned cCycleLimit = 200*1000;
+// Cycle counter limit for 10Hz. 
+static const unsigned cCycleLimit10Hz = (200*1000*1000)/(100*1000);
 
 //******************************************************************************
 //******************************************************************************
@@ -40,8 +40,8 @@ void main()
 	volatile uint32_t gpio = 0x0020;
 
    // Counters.
-   int tCount1ms = 0;   
-   int tCount1sec = 0;   
+   int tCount10Hz = 0;
+   int tCount1Hz = 0;   
 
    //***************************************************************************
    //***************************************************************************
@@ -77,11 +77,11 @@ void main()
       //************************************************************************
       // Execute at 1ms.
 
-      // Test if the cycle counter has reached 1ms.
-      if (PRU0_CTRL.CYCLE > cCycleLimit)
+      // Test if the cycle counter has reached 100ms.
+      if (PRU0_CTRL.CYCLE > cCycleLimit10Hz)
       {
          // Clear the cycle counter. This will cause this section
-         // of code to execute again in 1ms.
+         // of code to execute again in 100ms.
          PRU0_CTRL.CTRL_bit.CTR_EN = 0;
          PRU0_CTRL.CYCLE = 0;
          PRU0_CTRL.CTRL_bit.CTR_EN = 1;
@@ -92,18 +92,18 @@ void main()
          // Update status.
          gPruShare->mU2++;
 
-         // Update 1ms counter.
-         if (++tCount1ms % 1000 == 0)
+         // Update 100ms counter.
+         if (++tCount10Hz % 10 == 0)
          {
             // Update 1sec counter.
-            tCount1sec++;
+            tCount1Hz++;
             // Send a message to the arm at 1hz.
             sendArmTxMsg();
          }
 
          // Update status.
-         gPruShare->mU3 = tCount1ms;
-         gPruShare->mU4 = tCount1sec;
+         gPruShare->mU3 = tCount10Hz;
+         gPruShare->mU4 = tCount1Hz;
       }
 	}
 }

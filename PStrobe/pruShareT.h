@@ -49,20 +49,25 @@ typedef struct PruShareT
    //***************************************************************************
    // Members.
 
-   // Synchronous frame double buffer variables.
-   int mFrameCount;
-   int mFrameIndex0;
-   int mFrameIndex1;
+   // Synchronous frame double buffer select variables.
+   int mMMFrameSelect;
+   int mMSFrameSelect;
+   int mSSFrameSelect;
 
    // Sample frame double buffer.
-   unsigned short mSampleFrame[2][cSamplesPerFrame];
+   unsigned short mSampleFrame0[cSamplesPerFrame];
+   unsigned short mSampleFrame1[cSamplesPerFrame];
 
+   // Sample frame double buffer pointers.
+   unsigned short* mMMSampleFrame;
+   unsigned short* mSSSampleFrame;
+   
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
 } PruShareT;
 
-//****************************************************************************
-//****************************************************************************
-//****************************************************************************
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
 #endif
