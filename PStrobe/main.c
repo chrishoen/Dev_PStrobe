@@ -22,7 +22,7 @@ volatile register uint32_t __R30;
 volatile register uint32_t __R31;
 
 // Cycle counter limit for 10Hz. 
-static const unsigned cCycleLimit10Hz = (200*1000*1000)/(100*1000);
+static const unsigned cCycleLimit10Hz = (200*1000*1000)/10;
 
 //******************************************************************************
 //******************************************************************************
@@ -65,7 +65,7 @@ void main()
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Loop to toggle the gpio pin at 1ms.
+   // Main loop to process at 10Hz.
 
 	while(1)
    {     
@@ -75,35 +75,39 @@ void main()
       //************************************************************************
       //************************************************************************
       //************************************************************************
-      // Execute at 1ms.
+      // Wait to execute at 10Hz.
 
-      // Test if the cycle counter has reached 100ms.
-      if (PRU0_CTRL.CYCLE > cCycleLimit10Hz)
+      // Wait for the cycle counter to reach 100ms.
+      while (PRU0_CTRL.CYCLE < cCycleLimit10Hz) {}
+
+      // Clear the cycle counter. This will cause this section of code to
+      // execute again in 100ms.
+      PRU0_CTRL.CTRL_bit.CTR_EN = 0;
+      PRU0_CTRL.CYCLE = 0;
+      PRU0_CTRL.CTRL_bit.CTR_EN = 1;
+
+      //************************************************************************
+      //************************************************************************
+      //************************************************************************
+      // Execute at 10Hz.
+
+      // Toggle the gpio pin.
+      __R30 ^= gpio;
+
+      // Update status.
+      gPruShare->mU2++;
+
+      // Update 100ms counter.
+      if (++tCount10Hz % 10 == 0)
       {
-         // Clear the cycle counter. This will cause this section
-         // of code to execute again in 100ms.
-         PRU0_CTRL.CTRL_bit.CTR_EN = 0;
-         PRU0_CTRL.CYCLE = 0;
-         PRU0_CTRL.CTRL_bit.CTR_EN = 1;
-
-         // Toggle the gpio pin.
-   		__R30 ^= gpio;
-
-         // Update status.
-         gPruShare->mU2++;
-
-         // Update 100ms counter.
-         if (++tCount10Hz % 10 == 0)
-         {
-            // Update 1sec counter.
-            tCount1Hz++;
-            // Send a message to the arm at 1hz.
-            sendArmTxMsg();
-         }
-
-         // Update status.
-         gPruShare->mU3 = tCount10Hz;
-         gPruShare->mU4 = tCount1Hz;
+         // Update 1sec counter.
+         tCount1Hz++;
+         // Send a message to the arm at 1hz.
+         sendArmTxMsg();
       }
+
+      // Update status.
+      gPruShare->mU3 = tCount10Hz;
+      gPruShare->mU4 = tCount1Hz;
 	}
 }

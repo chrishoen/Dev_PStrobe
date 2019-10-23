@@ -41,7 +41,8 @@ void initializePruShare()
    gPruShare->mSSFrameSelect = 0;
 
    // Initialize members.
-   for (int i = 0; i < cSamplesPerFrame; i++)
+   int i;
+   for (i = 0; i < cSamplesPerFrame; i++)
    {
       gPruShare->mSampleFrame0[i] = 0;
       gPruShare->mSampleFrame1[i] = 0;
