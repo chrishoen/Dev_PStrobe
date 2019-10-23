@@ -41,7 +41,8 @@ void main()
 
    // Counters.
    int tCount10Hz = 0;
-   int tCount1Hz = 0;   
+   int tCount1Hz = 0;
+   int tFirstFrame = 1;   
 
    //***************************************************************************
    //***************************************************************************
@@ -102,8 +103,17 @@ void main()
       {
          // Update 1sec counter.
          tCount1Hz++;
-         // Send a message to the arm at 1hz.
-         sendArmTxMsg();
+         // Start a new frame.
+         pruStartFrame();
+         // Send a message to the arm at 1hz, but not for the first frame.
+         if (tFirstFrame == 1)
+         {
+            tFirstFrame = 0;
+         }
+         else
+         {
+            sendArmTxMsg();
+         }
       }
 
       // Update status.

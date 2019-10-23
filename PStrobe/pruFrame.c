@@ -26,7 +26,16 @@ void initializeSampleFrames()
 
 void doStartFrame()
 {
-  
+   if (gPruShare->mMMFrameSelect == 0)
+   {
+      gPruShare->mMMFrameSelect = 1;
+      gPruShare->mMSFrameSelect = 0;
+   }
+   else
+   {
+      gPruShare->mMMFrameSelect = 0;
+      gPruShare->mMSFrameSelect = 1;
+   }
 }
 
 //******************************************************************************
