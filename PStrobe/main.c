@@ -104,7 +104,8 @@ void main()
          // Update 1sec counter.
          tCount1Hz++;
          // Start a new frame.
-         pruStartFrame();
+         doStartFrame();
+
          // Send a message to the arm at 1hz, but not for the first frame.
          if (tFirstFrame == 1)
          {
